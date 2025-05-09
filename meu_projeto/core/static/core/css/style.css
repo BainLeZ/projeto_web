@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: blueviolet;
+    text-align: center;
+}
+
+/* Estilo do link normal */
+a {
+    color: #ffffff !important;  /* Cor azul para o link */
+    text-decoration: none !important;  /* Remove o sublinhado do link */
+}
+
+/* Estilo do link quando o usuário passa o mouse sobre ele */
+a:hover {
+    color: #0056b3 !important;  /* Cor azul mais escura no hover */
+    text-decoration: underline !important;  /* Adiciona o sublinhado ao passar o mouse */
+}
+
+/* Estilo do link visitado */
+a:visited {
+    color: #6c757d !important;  /* Cor cinza para links visitados */
+}

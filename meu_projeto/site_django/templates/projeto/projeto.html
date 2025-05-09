@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Jogos</title>
+    <link rel="stylesheet" href="{% static 'projeto/css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <!-- Lista de Jogos -->
+        <aside class="game-list">
+            <div class="auth-buttons">
+                {% if user.is_authenticated %}
+                <div class="user-info">
+                    <img src="{% static 'projeto/img/icone_usuario.webp' %}" alt="Ícone do usuário" class="user-icon">
+                    <span class="username">{{ user.username }}</span>
+                    <form action="{% url 'logout' %}" method="post" style="margin-left: 10px;">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
+                </div>                
+                {% else %}
+                    <button id="login-button" type="button" onclick="window.location.href='{% url 'login' %}'">Logar</button>
+                    <button id="register-button" type="button" onclick="window.location.href='{% url 'register' %}'">Registrar-se</button>
+                {% endif %}
+            </div>
+            <div class="search-container">
+                <input type="text" id="search-bar" placeholder="Pesquisar jogos...">
+            </div>
+            <h2>Jogos</h2>
+            <div class="games">
+                {% for jogo in jogos %}
+                <div class="game-item">
+                    <div class="game-icon"
+                        data-id="{{ jogo.id }}"
+                        data-name="{{ jogo.nome }}"
+                        data-description="{{ jogo.descricao }}"
+                        data-last="Última sessão"
+                        data-time="Tempo de jogo"
+                        data-achievements="Conquistas"
+                        data-banner="{{ jogo.banner.url }}"
+                        data-img1="{{ jogo.imagem_extra_1.url }}"
+                        data-img2="{{ jogo.imagem_extra_2.url }}"
+                        data-img3="{{ jogo.imagem_extra_3.url }}">
+                        <img src="{{ jogo.icone.url }}" alt="{{ jogo.nome }}">
+                    </div>
+                    <span class="game-name">{{ jogo.nome }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </aside>
+
+        <!-- Informações do Jogo -->
+        <section class="game-info">
+            <div class="top-section">
+                <div class="game-banner" id="game-banner" style="background-image: url('');"></div>
+                <div class="game-action">
+                    <span id="game-name">Selecione um jogo</span>
+                    <button id="play-button">Jogar</button>
+                    <p class="game-description" id="game-description">Selecione um jogo para ver a descrição.</p>
+                    <button id="more-info-button">Saiba mais</button>
+                </div>
+            </div>
+
+            <!-- Informações abaixo do banner -->
+            <div class="game-info-below-banner">
+                <div><span>Última Sessão</span><p id="last-session">-</p></div>
+                <div><span>Tempo de Jogo</span><p id="game-time">-</p></div>
+                <div><span>Conquistas</span><p id="achievements">-</p></div>
+            </div>
+
+            <!-- Imagens extras -->
+            <div class="game-images">
+                {% if jogo.imagem_extra_1 %}
+                    <img id="game-image-1" class="game-image" src="{{ jogo.imagem_extra_1.url }}" alt="Imagem 1">
+                {% else %}
+                    <img id="game-image-1" class="game-image" src="{% static 'projeto/img/default-image1.jpg' %}" alt="Imagem 1">
+                {% endif %}
+
+                {% if jogo.imagem_extra_2 %}
+                    <img id="game-image-2" class="game-image" src="{{ jogo.imagem_extra_2.url }}" alt="Imagem 2">
+                {% else %}
+                    <img id="game-image-2" class="game-image" src="{% static 'projeto/img/default-image2.jpg' %}" alt="Imagem 2">
+                {% endif %}
+
+                {% if jogo.imagem_extra_3 %}
+                    <img id="game-image-3" class="game-image" src="{{ jogo.imagem_extra_3.url }}" alt="Imagem 3">
+                {% else %}
+                    <img id="game-image-3" class="game-image" src="{% static 'projeto/img/default-image3.jpg' %}" alt="Imagem 3">
+                {% endif %}
+            </div>
+        </section>
+    </div>
+
+    <script src="{% static 'projeto/js/site.js' %}"></script>
+</body>
+</html>

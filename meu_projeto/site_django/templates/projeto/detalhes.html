@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{{ name }} - Detalhes</title>
+    <link rel="stylesheet" href="{% static 'projeto/css/detalhes.css' %}">
+
+    <style>
+        body { font-family: Arial; margin: 0; padding: 0; }
+        .banner { width: 100%; height: 300px; background-size: cover; background-position: center; }
+        .content { padding: 20px; }
+        .title { font-size: 32px; margin: 20px 0; text-align: center; }
+        .requisitos { display: flex; justify-content: space-around; margin-top: 30px; flex-wrap: wrap; gap: 20px; }
+        .requisito { width: 100%; max-width: 500px; background: #f0f0f0; padding: 20px; border-radius: 10px; }
+        .requisito h3 { margin-bottom: 10px; }
+        .genero { text-align: left; margin-top: 30px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="banner" style="background-image: url('{{ banner.url }}');"></div>
+    <div class="content">
+        <div class="title">{{ name }}</div>
+        <div class="requisitos">
+            <div class="requisito">
+                <h3>Requisitos Mínimos</h3>
+                <p>Processador: {{ processor_min }}</p>
+                <p>Placa de Vídeo: {{ gpu_min }}</p>
+                <p>Memória RAM: {{ ram_min }}</p>
+                <p>Disco: {{ disk_min }}</p>
+                <div class="genero"><strong>Gênero:</strong> {{ genero }}</div>
+            </div>
+            <div class="requisito">
+                <h3>Requisitos Recomendados</h3>
+                <p>Processador: {{ processor_rec }}</p>
+                <p>Placa de Vídeo: {{ gpu_rec }}</p>
+                <p>Memória RAM: {{ ram_rec }}</p>
+                <p>Disco: {{ disk_rec }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
