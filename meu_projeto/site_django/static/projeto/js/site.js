@@ -29,18 +29,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    function selecionarJogo(icon) {
+        gameBanner.style.backgroundImage = `url('${icon.dataset.banner}')`;
+        gameName.textContent = icon.dataset.name;
+        gameDescription.textContent = icon.dataset.description;
+        lastSession.textContent = icon.dataset.last;
+        gameTime.textContent = icon.dataset.time;
+        achievements.textContent = icon.dataset.achievements;
+        extraImg1.src = icon.dataset.img1;
+        extraImg2.src = icon.dataset.img2;
+        extraImg3.src = icon.dataset.img3;
+        selectedGameId = icon.dataset.id;
+    }
+
     gameIcons.forEach(icon => {
         icon.addEventListener('click', () => {
-            gameBanner.style.backgroundImage = `url('${icon.dataset.banner}')`;
-            gameName.textContent = icon.dataset.name;
-            gameDescription.textContent = icon.dataset.description;
-            lastSession.textContent = icon.dataset.last;
-            gameTime.textContent = icon.dataset.time;
-            achievements.textContent = icon.dataset.achievements;
-            extraImg1.src = icon.dataset.img1;
-            extraImg2.src = icon.dataset.img2;
-            extraImg3.src = icon.dataset.img3;
-            selectedGameId = icon.dataset.id;
+            selecionarJogo(icon);
+        });
+    });
+
+    // NOVO: Clique no nome do jogo
+    const gameNames = document.querySelectorAll('.game-name');
+    gameNames.forEach(name => {
+        name.addEventListener('click', () => {
+            const parentItem = name.closest('.game-item');
+            const icon = parentItem.querySelector('.game-icon');
+            selecionarJogo(icon);
         });
     });
 

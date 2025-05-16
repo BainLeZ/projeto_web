@@ -84,6 +84,13 @@ body {
 .game-name {
   font-size: 0.9em;
   color: #fff;
+  cursor: pointer;
+  transition: text-shadow 0.2s ease-in-out;
+
+}
+
+.game-name:hover {
+  color: #007bff; /* Azul padrão (ou escolha outro tom se quiser) */
 }
 
 /* ================= ÁREA PRINCIPAL ================= */
