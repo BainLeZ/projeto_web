@@ -13,22 +13,26 @@
         <aside class="game-list">
             <div class="auth-buttons">
                 {% if user.is_authenticated %}
-                <div class="user-info">
-                    <img src="{% static 'projeto/img/icone_usuario.webp' %}" alt="Ícone do usuário" class="user-icon">
-                    <span class="username">{{ user.username }}</span>
-                    <form action="{% url 'logout' %}" method="post" style="margin-left: 10px;">
-                        {% csrf_token %}
-                        <button type="submit" class="logout-button">Logout</button>
-                    </form>
-                </div>                
+                    <div class="user-info">
+                        <div class="user-details">
+                            <img src="{% static 'projeto/img/icone_usuario.webp' %}" alt="Ícone do usuário" class="user-icon">
+                            <span class="username">{{ user.username }}</span>
+                        </div>
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" class="logout-button">Logout</button>
+                        </form>
+                    </div>
                 {% else %}
                     <button id="login-button" type="button" onclick="window.location.href='{% url 'login' %}'">Logar</button>
                     <button id="register-button" type="button" onclick="window.location.href='{% url 'register' %}'">Registrar-se</button>
                 {% endif %}
             </div>
+
             <div class="search-container">
                 <input type="text" id="search-bar" placeholder="Pesquisar jogos...">
             </div>
+
             <h2>Jogos</h2>
             <div class="games">
                 {% for jogo in jogos %}
@@ -37,9 +41,9 @@
                         data-id="{{ jogo.id }}"
                         data-name="{{ jogo.nome }}"
                         data-description="{{ jogo.descricao }}"
-                        data-last="Última sessão"
-                        data-time="Tempo de jogo"
-                        data-achievements="Conquistas"
+                        data-last="Última sessão: 0"
+                        data-time="Tempo de jogo: 0"
+                        data-achievements="Conquistas: 0/30"
                         data-banner="{{ jogo.banner.url }}"
                         data-img1="{{ jogo.imagem_extra_1.url }}"
                         data-img2="{{ jogo.imagem_extra_2.url }}"
@@ -66,9 +70,9 @@
 
             <!-- Informações abaixo do banner -->
             <div class="game-info-below-banner">
-                <div><span>Última Sessão</span><p id="last-session">-</p></div>
-                <div><span>Tempo de Jogo</span><p id="game-time">-</p></div>
-                <div><span>Conquistas</span><p id="achievements">-</p></div>
+                <div><span>⌛Última Sessão</span><p id="last-session">-</p></div>
+                <div><span>🕒Tempo de Jogo</span><p id="game-time">-</p></div>
+                <div><span>🥇Conquistas</span><p id="achievements">-</p></div>
             </div>
 
             <!-- Imagens extras -->

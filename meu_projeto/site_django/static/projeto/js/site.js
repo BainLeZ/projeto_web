@@ -61,4 +61,46 @@ document.addEventListener('DOMContentLoaded', () => {
     if (gameIcons.length > 0) {
         gameIcons[0].click();
     }
+
+    // --------------------------
+    // Filtro de busca por nome
+    // --------------------------
+    const searchInput = document.getElementById("search-bar");
+    const gameItems = document.querySelectorAll(".game-item");
+
+    searchInput.addEventListener("input", function () {
+        const query = searchInput.value.toLowerCase();
+        let foundMatch = false;
+
+        gameItems.forEach(item => {
+            const gameName = item.querySelector(".game-name").textContent.toLowerCase();
+
+            if (gameName.includes(query)) {
+                item.style.display = "flex"; // Ou "block", dependendo do seu CSS
+                foundMatch = true;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        // Mensagem se nenhum jogo for encontrado
+        const noResultMessageId = "no-results-message";
+        let existingMessage = document.getElementById(noResultMessageId);
+
+        if (!foundMatch) {
+            if (!existingMessage) {
+                const message = document.createElement("p");
+                message.id = noResultMessageId;
+                message.textContent = "Nenhum jogo encontrado.";
+                message.style.color = "gray";
+                message.style.textAlign = "center";
+                message.style.marginTop = "10px";
+                document.querySelector(".games").appendChild(message);
+            }
+        } else {
+            if (existingMessage) {
+                existingMessage.remove();
+            }
+        }
+    });
 });

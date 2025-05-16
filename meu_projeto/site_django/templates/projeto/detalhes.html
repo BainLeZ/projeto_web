@@ -7,20 +7,100 @@
     <link rel="stylesheet" href="{% static 'projeto/css/detalhes.css' %}">
 
     <style>
-        body { font-family: Arial; margin: 0; padding: 0; }
-        .banner { width: 100%; height: 300px; background-size: cover; background-position: center; }
-        .content { padding: 20px; }
-        .title { font-size: 32px; margin: 20px 0; text-align: center; }
-        .requisitos { display: flex; justify-content: space-around; margin-top: 30px; flex-wrap: wrap; gap: 20px; }
-        .requisito { width: 100%; max-width: 500px; background: #f0f0f0; padding: 20px; border-radius: 10px; }
-        .requisito h3 { margin-bottom: 10px; }
-        .genero { text-align: left; margin-top: 30px; font-size: 18px; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #131212 !important;
+            color: #e0e0e0 !important;
+        }
+
+        .banner {
+            width: 100%;
+            height: 550px;
+            background-color: #333 !important;
+            background-image: url('{{ banner.url }}');
+            background-size: contain !important;
+            background-repeat: no-repeat !important;
+            background-position: center !important;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .title {
+            font-size: 36px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #ffffff !important;
+        }
+
+        .requisitos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .requisito {
+            flex: 1 1 45%;
+            background-color: #292828 !important;
+            color: #ffffff !important;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .requisito:hover {
+            background-color: #292828 !important;
+        }
+
+        .requisito h3 {
+            margin-bottom: 15px;
+            color: #005ce6 !important;
+        }
+
+        .requisito p {
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .genero {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #ff1b1b !important;
+        }
+
+        @media (max-width: 768px) {
+            .requisitos {
+                flex-direction: column;
+            }
+
+            .requisito {
+                width: 100%;
+            }
+
+            .banner {
+                height: 200px;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="banner" style="background-image: url('{{ banner.url }}');"></div>
+    <div class="banner"></div>
+
     <div class="content">
         <div class="title">{{ name }}</div>
+
         <div class="requisitos">
             <div class="requisito">
                 <h3>Requisitos Mínimos</h3>
@@ -30,6 +110,7 @@
                 <p>Disco: {{ disk_min }}</p>
                 <div class="genero"><strong>Gênero:</strong> {{ genero }}</div>
             </div>
+
             <div class="requisito">
                 <h3>Requisitos Recomendados</h3>
                 <p>Processador: {{ processor_rec }}</p>

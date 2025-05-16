@@ -100,7 +100,6 @@ body {
   flex-wrap: wrap;
 }
 
-/* Banner */
 .game-banner {
   flex: 2;
   min-width: 300px;
@@ -111,7 +110,6 @@ body {
   background-color: #333;
 }
 
-/* Info lateral ao banner */
 .game-action {
   flex: 1;
   display: flex;
@@ -128,8 +126,6 @@ body {
 
 button {
   padding: 10px 20px;
-  background-color: #007BFF;
-  color: white;
   border: none;
   border-radius: 6px;
   font-size: 1em;
@@ -137,8 +133,93 @@ button {
   transition: background-color 0.3s ease;
 }
 
-button:hover {
+/* ================= Botões Jogar e Saiba Mais ================= */
+#play-button {
+  background-color: #007BFF; /* Azul */
+  color: white;
+}
+
+#play-button:hover {
+  background-color: #0056b3; /* Azul mais escuro */
+}
+
+#more-info-button {
+  background-color: #007BFF; /* Azul */
+  color: white;
+}
+
+#more-info-button:hover {
+  background-color: #0056b3; /* Azul mais escuro */
+}
+
+/* ================= AUTH BUTTONS ================= */
+.auth-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #444;
+  flex-wrap: wrap;
+}
+
+#login-button,
+#register-button {
+  flex: 1;
+  padding: 10px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#login-button:hover,
+#register-button:hover {
   background-color: #0056b3;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.username {
+  color: #fff;
+  font-weight: bold;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.8em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #a71d2a;
 }
 
 .game-description {
@@ -147,7 +228,6 @@ button:hover {
   color: #ccc;
 }
 
-/* ================= INFO ABAIXO DO BANNER ================= */
 .game-info-below-banner {
   display: flex;
   gap: 20px;
@@ -170,7 +250,6 @@ button:hover {
   font-size: 1.1em;
 }
 
-/* ================= IMAGENS EXTRAS ================= */
 .game-images {
   display: flex;
   gap: 15px;
@@ -189,53 +268,6 @@ button:hover {
 .game-image:hover {
   transform: scale(1.03);
   box-shadow: 0 0 10px #fff;
-}
-
-/* ================= AUTH BUTTONS ================= */
-.auth-buttons {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #444;
-}
-
-.auth-buttons button {
-  flex: 1;
-  padding: 10px;
-  background-color: #0069d9;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.9em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.auth-buttons button:hover {
-  background-color: #0056b3;
-}
-
-/* ================= USER INFO ================= */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 0;
-}
-
-.user-icon {
-  width: 32px;
-  height: 32px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #fff;
-}
-
-.username {
-  color: #fff;
-  font-weight: bold;
 }
 
 /* ========== RESPONSIVO ========== */
@@ -267,21 +299,12 @@ button:hover {
   }
 
   .user-info {
-    margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
   }
-}
 
-.logout-button {
-  padding: 6px 12px;
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 0.8em;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.logout-button:hover {
-  background-color: #a71d2a;
+  .logout-button {
+    align-self: flex-end;
+  }
 }

@@ -6,17 +6,17 @@ body {
 
 /* Estilo do link normal */
 a {
-    color: #ffffff !important;  /* Cor azul para o link */
-    text-decoration: none !important;  /* Remove o sublinhado do link */
+    color: #ffffff;  /* Cor branca para o link */
+    text-decoration: none;  /* Remove o sublinhado do link */
 }
 
 /* Estilo do link quando o usuário passa o mouse sobre ele */
 a:hover {
-    color: #0056b3 !important;  /* Cor azul mais escura no hover */
-    text-decoration: underline !important;  /* Adiciona o sublinhado ao passar o mouse */
+    color: #ffffff;  /* Cor branca no hover */
+    text-decoration: underline;  /* Adiciona o sublinhado ao passar o mouse */
 }
 
 /* Estilo do link visitado */
 a:visited {
-    color: #6c757d !important;  /* Cor cinza para links visitados */
+    color: #ffffff !important; /* Cor branca para links visitados */
 }
