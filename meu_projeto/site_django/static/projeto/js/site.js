@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Seleciona automaticamente o primeiro jogo ao carregar a página
     if (gameIcons.length > 0) {
-        gameIcons[0].click();
+        gameIcons[0].click(); // Clique no primeiro jogo da lista automaticamente
     }
 
     // --------------------------
@@ -117,4 +117,92 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // Funcionalidade para ampliar a imagem
+    const images = document.querySelectorAll('.game-image');
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    const modalImg = document.createElement('img');
+    const closeBtn = document.createElement('span');
+    closeBtn.classList.add('close-btn');
+    closeBtn.textContent = '×';
+    const prevBtn = document.createElement('span');
+    prevBtn.classList.add('prev-btn');
+    prevBtn.textContent = '←';
+    const nextBtn = document.createElement('span');
+    nextBtn.classList.add('next-btn');
+    nextBtn.textContent = '→';
+
+    modal.appendChild(modalImg);
+    modal.appendChild(closeBtn);
+    modal.appendChild(prevBtn);
+    modal.appendChild(nextBtn);
+    document.body.appendChild(modal);
+
+    let currentIndex = 0;
+    let imagesArray = [];
+
+    images.forEach((image, index) => {
+        image.addEventListener('click', () => {
+            modal.style.display = 'flex';
+            modalImg.src = image.src;
+            imagesArray = [extraImg1.src, extraImg2.src, extraImg3.src]; // Imagens extras
+            currentIndex = index; // Atualiza o índice da imagem clicada
+        });
+    });
+
+    closeBtn.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + imagesArray.length) % imagesArray.length;
+        modalImg.src = imagesArray[currentIndex];
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % imagesArray.length;
+        modalImg.src = imagesArray[currentIndex];
+    });
+
+    // --------------------------
+    // Estilos da modal de ampliação
+    // --------------------------
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+        }
+        .close-btn, .prev-btn, .next-btn {
+            position: absolute;
+            top: 20px;
+            font-size: 2em;
+            color: white;
+            cursor: pointer;
+            z-index: 10;
+        }
+        .close-btn {
+            right: 20px;
+        }
+        .prev-btn {
+            left: 20px;
+        }
+        .next-btn {
+            right: 60px;
+        }
+    `;
+    document.head.appendChild(style);
 });
