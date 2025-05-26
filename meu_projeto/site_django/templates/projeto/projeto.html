@@ -9,7 +9,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Lista de Jogos -->
         <aside class="game-list">
             <div class="auth-buttons">
                 {% if user.is_authenticated %}
@@ -56,7 +55,6 @@
             </div>
         </aside>
 
-        <!-- Informações do Jogo -->
         <section class="game-info">
             <div class="top-section">
                 <div class="game-banner" id="game-banner" style="background-image: url('');"></div>
@@ -68,37 +66,19 @@
                 </div>
             </div>
 
-            <!-- Informações abaixo do banner -->
             <div class="game-info-below-banner">
                 <div><span>⌛Última Sessão</span><p id="last-session">-</p></div>
                 <div><span>🕒Tempo de Jogo</span><p id="game-time">-</p></div>
                 <div><span>🥇Conquistas</span><p id="achievements">-</p></div>
             </div>
 
-            <!-- Imagens extras -->
             <div class="game-images">
-                {% if jogo.imagem_extra_1 %}
-                    <img id="game-image-1" class="game-image" src="{{ jogo.imagem_extra_1.url }}" alt="Imagem 1">
-                {% else %}
-                    <img id="game-image-1" class="game-image" src="{% static 'projeto/img/default-image1.jpg' %}" alt="Imagem 1">
-                {% endif %}
-
-                {% if jogo.imagem_extra_2 %}
-                    <img id="game-image-2" class="game-image" src="{{ jogo.imagem_extra_2.url }}" alt="Imagem 2">
-                {% else %}
-                    <img id="game-image-2" class="game-image" src="{% static 'projeto/img/default-image2.jpg' %}" alt="Imagem 2">
-                {% endif %}
-
-                {% if jogo.imagem_extra_3 %}
-                    <img id="game-image-3" class="game-image" src="{{ jogo.imagem_extra_3.url }}" alt="Imagem 3">
-                {% else %}
-                    <img id="game-image-3" class="game-image" src="{% static 'projeto/img/default-image3.jpg' %}" alt="Imagem 3">
-                {% endif %}
+                <img id="game-image-1" class="game-image" src="{% static 'projeto/img/default-image1.jpg' %}" alt="Imagem 1">
+                <img id="game-image-2" class="game-image" src="{% static 'projeto/img/default-image2.jpg' %}" alt="Imagem 2">
+                <img id="game-image-3" class="game-image" src="{% static 'projeto/img/default-image3.jpg' %}" alt="Imagem 3">
             </div>
         </section>
     </div>
-
-    <!-- A MODAL FOI REMOVIDA DO HTML E SERÁ CRIADA PELO JS -->
 
     <script src="{% static 'projeto/js/site.js' %}"></script>
 </body>

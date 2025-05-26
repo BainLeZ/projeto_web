@@ -11,44 +11,67 @@ document.addEventListener('DOMContentLoaded', () => {
     const extraImg1 = document.getElementById('game-image-1');
     const extraImg2 = document.getElementById('game-image-2');
     const extraImg3 = document.getElementById('game-image-3');
-
     const loginButton = document.getElementById('login-button');
     const registerButton = document.getElementById('register-button');
 
     let selectedGameId = null;
 
-    if (loginButton) {
-        loginButton.addEventListener('click', () => {
-            window.location.href = '/login/';
+    // 🔄 Aplica o blur suave em uma imagem (com src)
+    function aplicarBlurSuave(imgElement, newSrc) {
+        imgElement.style.transition = 'none';
+        imgElement.style.filter = 'blur(8px)';
+        imgElement.style.opacity = '0.7';
+
+        requestAnimationFrame(() => {
+            imgElement.src = newSrc;
+
+            setTimeout(() => {
+                imgElement.style.transition = 'filter 0.4s ease, opacity 0.4s ease';
+                imgElement.style.filter = 'blur(0)';
+                imgElement.style.opacity = '1';
+            }, 100);
         });
     }
 
-    if (registerButton) {
-        registerButton.addEventListener('click', () => {
-            window.location.href = '/register/';
-        });
-    }
-
+    // ✅ Seleciona o jogo e atualiza banner + imagens com blur suave
     function selecionarJogo(icon) {
-        gameBanner.style.backgroundImage = `url('${icon.dataset.banner}')`;
+        // Aplica blur no banner
+        gameBanner.style.transition = 'none';
+        gameBanner.style.filter = 'blur(8px)';
+        gameBanner.style.opacity = '0.7';
+
+        requestAnimationFrame(() => {
+            gameBanner.style.backgroundImage = `url('${icon.dataset.banner}')`;
+
+            setTimeout(() => {
+                gameBanner.style.transition = 'filter 0.4s ease, opacity 0.4s ease';
+                gameBanner.style.filter = 'blur(0)';
+                gameBanner.style.opacity = '1';
+            }, 100);
+        });
+
+        // Atualiza informações do jogo
         gameName.textContent = icon.dataset.name;
         gameDescription.textContent = icon.dataset.description;
         lastSession.textContent = icon.dataset.last;
         gameTime.textContent = icon.dataset.time;
         achievements.textContent = icon.dataset.achievements;
-        extraImg1.src = icon.dataset.img1;
-        extraImg2.src = icon.dataset.img2;
-        extraImg3.src = icon.dataset.img3;
+
+        // Aplica blur nas imagens extras
+        aplicarBlurSuave(extraImg1, icon.dataset.img1);
+        aplicarBlurSuave(extraImg2, icon.dataset.img2);
+        aplicarBlurSuave(extraImg3, icon.dataset.img3);
+
         selectedGameId = icon.dataset.id;
     }
 
+    // Eventos de clique
     gameIcons.forEach(icon => {
         icon.addEventListener('click', () => {
             selecionarJogo(icon);
         });
     });
 
-    // NOVO: Clique no nome do jogo
     const gameNames = document.querySelectorAll('.game-name');
     gameNames.forEach(name => {
         name.addEventListener('click', () => {
@@ -64,21 +87,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     moreInfoButton.addEventListener('click', () => {
         if (selectedGameId) {
-            const url = `/jogo/${selectedGameId}/`;
-            window.location.href = url;
+            window.location.href = `/jogo/${selectedGameId}/`;
         } else {
             alert("Por favor, selecione um jogo primeiro.");
         }
     });
 
-    // Seleciona automaticamente o primeiro jogo ao carregar a página
+    // Seleciona o primeiro jogo automaticamente
     if (gameIcons.length > 0) {
-        gameIcons[0].click(); // Clique no primeiro jogo da lista automaticamente
+        gameIcons[0].click();
     }
 
-    // --------------------------
-    // Filtro de busca por nome
-    // --------------------------
+    // Busca
     const searchInput = document.getElementById("search-bar");
     const gameItems = document.querySelectorAll(".game-item");
 
@@ -87,17 +107,15 @@ document.addEventListener('DOMContentLoaded', () => {
         let foundMatch = false;
 
         gameItems.forEach(item => {
-            const gameName = item.querySelector(".game-name").textContent.toLowerCase();
-
-            if (gameName.includes(query)) {
-                item.style.display = "flex"; // Ou "block", dependendo do seu CSS
+            const name = item.querySelector(".game-name").textContent.toLowerCase();
+            if (name.includes(query)) {
+                item.style.display = "flex";
                 foundMatch = true;
             } else {
                 item.style.display = "none";
             }
         });
 
-        // Mensagem se nenhum jogo for encontrado
         const noResultMessageId = "no-results-message";
         let existingMessage = document.getElementById(noResultMessageId);
 
@@ -118,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Funcionalidade para ampliar a imagem
+    // Modal de imagem
     const images = document.querySelectorAll('.game-image');
     const modal = document.createElement('div');
     modal.classList.add('modal');
@@ -146,8 +164,8 @@ document.addEventListener('DOMContentLoaded', () => {
         image.addEventListener('click', () => {
             modal.style.display = 'flex';
             modalImg.src = image.src;
-            imagesArray = [extraImg1.src, extraImg2.src, extraImg3.src]; // Imagens extras
-            currentIndex = index; // Atualiza o índice da imagem clicada
+            imagesArray = [extraImg1.src, extraImg2.src, extraImg3.src];
+            currentIndex = index;
         });
     });
 
@@ -164,45 +182,4 @@ document.addEventListener('DOMContentLoaded', () => {
         currentIndex = (currentIndex + 1) % imagesArray.length;
         modalImg.src = imagesArray[currentIndex];
     });
-
-    // --------------------------
-    // Estilos da modal de ampliação
-    // --------------------------
-    const style = document.createElement('style');
-    style.innerHTML = `
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: none;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal img {
-            max-width: 80%;
-            max-height: 80%;
-            object-fit: contain;
-        }
-        .close-btn, .prev-btn, .next-btn {
-            position: absolute;
-            top: 20px;
-            font-size: 2em;
-            color: white;
-            cursor: pointer;
-            z-index: 10;
-        }
-        .close-btn {
-            right: 20px;
-        }
-        .prev-btn {
-            left: 20px;
-        }
-        .next-btn {
-            right: 60px;
-        }
-    `;
-    document.head.appendChild(style);
 });
