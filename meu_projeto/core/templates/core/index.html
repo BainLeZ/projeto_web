@@ -3,16 +3,25 @@
 <head>
     <meta charset="UTF-8">
     {% load static %}
-    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página inicial do meu Projeto</title>
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="{% static 'core/css/style.css' %}">
 </head>
 <body>
-    <h1>{{ saudacao }}</h1>
-    <h1>Bem-vindo ao meu site, {{ nome }}!</h1>
-    <p>Esta é a nossa primeira página utilizando HTML no Django</p>
-    
-    <!-- Link para o site de jogos -->
-    <p><a href="{% url 'projeto' %}">Clique aqui para acessar o site de jogos</a></p>
+    <h1 class="titulo-principal">Olá, seja bem-vindo ao meu site!</h1>
+
+    <div class="welcome-section">
+        <p class="texto-acao">Fazer login</p>
+        <button class="btn btn-login" onclick="window.location.href='{% url 'login' %}'">Login</button>
+    </div>
+
+    <div class="welcome-section">
+        <p class="texto-acao">Criar uma conta</p>
+        <button class="btn btn-register" onclick="window.location.href='{% url 'register' %}'">Registrar-se</button>
+    </div>
+
+    <div class="welcome-section">
+        <button class="btn btn-guest" onclick="window.location.href='{% url 'projeto' %}'">Entrar sem login</button>
+    </div>
 </body>
 </html>

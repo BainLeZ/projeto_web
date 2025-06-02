@@ -11,12 +11,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const extraImg1 = document.getElementById('game-image-1');
     const extraImg2 = document.getElementById('game-image-2');
     const extraImg3 = document.getElementById('game-image-3');
-    const loginButton = document.getElementById('login-button');
-    const registerButton = document.getElementById('register-button');
+
+    const selectMessage = document.getElementById('select-message');
+    const gameContent = document.getElementById('game-content');
 
     let selectedGameId = null;
 
-    // 🔄 Aplica o blur suave em uma imagem (com src)
+    // Função que esconde a mensagem e mostra o conteúdo do jogo
+    function showGameContent() {
+        selectMessage.style.display = 'none';
+        gameContent.style.display = 'block';
+    }
+
+    // Função para aplicar blur suave numa imagem (com src)
     function aplicarBlurSuave(imgElement, newSrc) {
         imgElement.style.transition = 'none';
         imgElement.style.filter = 'blur(8px)';
@@ -33,8 +40,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ✅ Seleciona o jogo e atualiza banner + imagens com blur suave
+    // Atualiza as infos do jogo na tela e mostra o conteúdo
     function selecionarJogo(icon) {
+        if (!icon) return;
+
+        // Esconde mensagem e mostra conteúdo ao selecionar o jogo
+        showGameContent();
+
         // Aplica blur no banner
         gameBanner.style.transition = 'none';
         gameBanner.style.filter = 'blur(8px)';
@@ -65,13 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedGameId = icon.dataset.id;
     }
 
-    // Eventos de clique
+    // Eventos de clique nos ícones
     gameIcons.forEach(icon => {
         icon.addEventListener('click', () => {
             selecionarJogo(icon);
         });
     });
 
+    // Também permite clicar no nome do jogo para selecionar
     const gameNames = document.querySelectorAll('.game-name');
     gameNames.forEach(name => {
         name.addEventListener('click', () => {
@@ -82,7 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     playButton.addEventListener('click', () => {
-        alert(`Você está jogando ${gameName.textContent}`);
+        if (selectedGameId) {
+            alert(`Você está jogando ${gameName.textContent}`);
+        } else {
+            alert("Por favor, selecione um jogo primeiro.");
+        }
     });
 
     moreInfoButton.addEventListener('click', () => {
@@ -93,10 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Seleciona o primeiro jogo automaticamente
-    if (gameIcons.length > 0) {
-        gameIcons[0].click();
-    }
+    // NÃO seleciona o primeiro jogo automaticamente para forçar o usuário escolher
 
     // Busca
     const searchInput = document.getElementById("search-bar");

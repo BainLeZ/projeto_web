@@ -1,22 +1,68 @@
 body {
+    background-image: url("img/fundo_site.png"); /* Caminho da imagem */
+    background-size: cover;           /* Faz a imagem cobrir toda a tela */
+    background-repeat: no-repeat;     /* Evita repetição */
+    background-position: center;      /* Centraliza a imagem */
+    background-attachment: fixed;     /* Fixa o fundo ao rolar */
     font-family: Arial, sans-serif;
-    background-color: blueviolet;
+    color: #fff;
     text-align: center;
+    padding: 40px 20px;
 }
 
-/* Estilo do link normal */
-a {
-    color: #ffffff;  /* Cor branca para o link */
-    text-decoration: none;  /* Remove o sublinhado do link */
+.titulo-principal {
+    font-size: 2.5em;
+    margin-bottom: 40px;
+    color: #ffffff;
 }
 
-/* Estilo do link quando o usuário passa o mouse sobre ele */
-a:hover {
-    color: #ffffff;  /* Cor branca no hover */
-    text-decoration: underline;  /* Adiciona o sublinhado ao passar o mouse */
+.welcome-section {
+    margin: 30px 0;
 }
 
-/* Estilo do link visitado */
-a:visited {
-    color: #ffffff !important; /* Cor branca para links visitados */
+.texto-acao {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.btn {
+    padding: 14px 24px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+    width: 250px;
+    max-width: 90%;
+}
+
+.btn:hover {
+    transform: scale(1.03);
+}
+
+.btn-login {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-login:hover {
+    background-color: #218838;
+}
+
+.btn-register {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-register:hover {
+    background-color: #0056b3;
+}
+
+.btn-guest {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-guest:hover {
+    background-color: #a71d2a;
 }
