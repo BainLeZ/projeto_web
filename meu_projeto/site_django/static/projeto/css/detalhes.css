@@ -18,12 +18,8 @@ body {
     background-repeat: no-repeat !important;
     background-position: center !important;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.content {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    margin-bottom: 30px;
+    background-image: url('{{ banner.url }}');
 }
 
 .title {
@@ -34,24 +30,20 @@ body {
     color: #ffffff !important;
 }
 
-.requisitos {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: space-between;
-}
-
 .requisito {
-    flex: 1 1 45%;
     background-color: #292828 !important;
     color: #ffffff !important;
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .requisito:hover {
-    background-color: #292828 !important;
+    background-color: #3a3a3a !important;
 }
 
 .requisito h3 {
@@ -71,15 +63,11 @@ body {
 }
 
 @media (max-width: 768px) {
-    .requisitos {
-        flex-direction: column;
-    }
-
-    .requisito {
-        width: 100%;
-    }
-
     .banner {
         height: 200px;
+    }
+
+    .title {
+        font-size: 28px;
     }
 }

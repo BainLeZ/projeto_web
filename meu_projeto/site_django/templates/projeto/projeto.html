@@ -5,120 +5,129 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Site de Jogos</title>
+
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Seu CSS -->
     <link rel="stylesheet" href="{% static 'projeto/css/style.css' %}" />
 </head>
 <body>
-    <div class="container">
-        <aside class="game-list">
-            <div class="auth-buttons">
-                {% if user.is_authenticated %}
-                    <div class="user-info">
-                        <div class="user-details">
-                            <img src="{% static 'projeto/img/icone_usuario.webp' %}" alt="Ícone do usuário" class="user-icon" />
-                            <span class="username">{{ user.username }}</span>
+    <div class="container-fluid">
+        <div class="row flex-lg-nowrap">
+
+            <!-- LISTA DE JOGOS -->
+            <aside class="col-lg-3 col-md-4 col-12 game-list">
+                <div class="auth-buttons">
+                    {% if user.is_authenticated %}
+                        <div class="user-info">
+                            <div class="user-details">
+                                <img src="{% static 'projeto/img/icone_usuario.webp' %}" alt="Ícone do usuário" class="user-icon" />
+                                <span class="username">{{ user.username }}</span>
+                            </div>
+                            <form action="{% url 'logout' %}" method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="logout-button">Logout</button>
+                            </form>
                         </div>
-                        <form action="{% url 'logout' %}" method="post">
-                            {% csrf_token %}
-                            <button type="submit" class="logout-button">Logout</button>
-                        </form>
-                    </div>
-                {% else %}
-                    <button id="login-button" type="button" onclick="window.location.href='{% url 'login' %}'">Logar</button>
-                    <button id="register-button" type="button" onclick="window.location.href='{% url 'register' %}'">Registrar-se</button>
-                {% endif %}
-            </div>
-
-            <div class="search-container">
-                <input type="text" id="search-bar" placeholder="Pesquisar jogos..." />
-            </div>
-
-            <h2>Jogos</h2>
-            <div class="games">
-                {% for jogo in jogos %}
-                <div class="game-item">
-                    <div
-                        class="game-icon"
-                        data-id="{{ jogo.id }}"
-                        data-name="{{ jogo.nome }}"
-                        data-description="{{ jogo.descricao }}"
-                        data-last="Última sessão: 0"
-                        data-time="Tempo de jogo: 0"
-                        data-achievements="Conquistas: 0/30"
-                        data-banner="{{ jogo.banner.url }}"
-                        data-img1="{{ jogo.imagem_extra_1.url }}"
-                        data-img2="{{ jogo.imagem_extra_2.url }}"
-                        data-img3="{{ jogo.imagem_extra_3.url }}"
-                    >
-                        <img src="{{ jogo.icone.url }}" alt="{{ jogo.nome }}" />
-                    </div>
-                    <span class="game-name">{{ jogo.nome }}</span>
-                </div>
-                {% endfor %}
-            </div>
-        </aside>
-
-        <section class="game-info">
-            <!-- Mensagem inicial com emoji e animação pulsante -->
-            <div id="select-message">
-                <p class="pulse">Selecione um jogo da lista</p>
-                <div class="controller-emoji pulse">🎮</div>
-            </div>
-
-            <!-- Conteúdo do jogo (escondido inicialmente) -->
-            <div id="game-content" style="display: none;">
-                <div class="top-section">
-                    <div
-                        class="game-banner"
-                        id="game-banner"
-                        style="background-image: url('');"
-                    ></div>
-                    <div class="game-action">
-                        <span id="game-name">Selecione um jogo</span>
-                        <button id="play-button">Jogar</button>
-                        <p class="game-description" id="game-description">Selecione um jogo para ver a descrição.</p>
-                        <button id="more-info-button">Saiba mais</button>
-                    </div>
+                    {% else %}
+                        <button id="login-button" type="button" onclick="window.location.href='{% url 'login' %}'">Logar</button>
+                        <button id="register-button" type="button" onclick="window.location.href='{% url 'register' %}'">Registrar-se</button>
+                    {% endif %}
                 </div>
 
-                <div class="game-info-below-banner">
-                    <div>
-                        <span>⌛Última Sessão</span>
-                        <p id="last-session">-</p>
-                    </div>
-                    <div>
-                        <span>🕒Tempo de Jogo</span>
-                        <p id="game-time">-</p>
-                    </div>
-                    <div>
-                        <span>🥇Conquistas</span>
-                        <p id="achievements">-</p>
-                    </div>
+                <div class="search-container">
+                    <input type="text" id="search-bar" placeholder="Pesquisar jogos..." />
                 </div>
 
-                <div class="game-images">
-                    <img
-                        id="game-image-1"
-                        class="game-image"
-                        src="{% static 'projeto/img/default-image1.jpg' %}"
-                        alt="Imagem 1"
-                    />
-                    <img
-                        id="game-image-2"
-                        class="game-image"
-                        src="{% static 'projeto/img/default-image2.jpg' %}"
-                        alt="Imagem 2"
-                    />
-                    <img
-                        id="game-image-3"
-                        class="game-image"
-                        src="{% static 'projeto/img/default-image3.jpg' %}"
-                        alt="Imagem 3"
-                    />
+                <h2>Jogos</h2>
+                <div class="games">
+                    {% for jogo in jogos %}
+                    <div class="game-item">
+                        <div
+                            class="game-icon"
+                            data-id="{{ jogo.id }}"
+                            data-name="{{ jogo.nome }}"
+                            data-description="{{ jogo.descricao }}"
+                            data-last="Última sessão: 0"
+                            data-time="Tempo de jogo: 0"
+                            data-achievements="Conquistas: 0/30"
+                            data-banner="{{ jogo.banner.url }}"
+                            data-img1="{{ jogo.imagem_extra_1.url }}"
+                            data-img2="{{ jogo.imagem_extra_2.url }}"
+                            data-img3="{{ jogo.imagem_extra_3.url }}"
+                        >
+                            <img src="{{ jogo.icone.url }}" alt="{{ jogo.nome }}" />
+                        </div>
+                        <span class="game-name">{{ jogo.nome }}</span>
+                    </div>
+                    {% endfor %}
                 </div>
-            </div>
-        </section>
+            </aside>
+
+            <!-- INFORMAÇÕES DO JOGO -->
+            <section class="col-lg-9 col-md-8 col-12 game-info">
+                <div id="select-message">
+                    <p class="pulse">Selecione um jogo da lista</p>
+                    <div class="controller-emoji pulse">🎮</div>
+                </div>
+
+                <div id="game-content" style="display: none;">
+                    <div class="top-section">
+                        <div class="game-banner" id="game-banner" style="background-image: url('');"></div>
+                        <div class="game-action">
+                            <span id="game-name">Selecione um jogo</span>
+                            <button id="play-button">Jogar</button>
+                            <p class="game-description" id="game-description">Selecione um jogo para ver a descrição.</p>
+                            <button id="more-info-button">Saiba mais</button>
+                        </div>
+                    </div>
+
+                    <div class="game-info-below-banner">
+                        <div>
+                            <span>⌛Última Sessão</span>
+                            <p id="last-session">-</p>
+                        </div>
+                        <div>
+                            <span>🕒Tempo de Jogo</span>
+                            <p id="game-time">-</p>
+                        </div>
+                        <div>
+                            <span>🥇Conquistas</span>
+                            <p id="achievements">-</p>
+                        </div>
+                    </div>
+
+                    <div class="game-images">
+                        <img
+                            id="game-image-1"
+                            class="game-image"
+                            src="{% static 'projeto/img/default-image1.jpg' %}"
+                            alt="Imagem 1"
+                        />
+                        <img
+                            id="game-image-2"
+                            class="game-image"
+                            src="{% static 'projeto/img/default-image2.jpg' %}"
+                            alt="Imagem 2"
+                        />
+                        <img
+                            id="game-image-3"
+                            class="game-image"
+                            src="{% static 'projeto/img/default-image3.jpg' %}"
+                            alt="Imagem 3"
+                        />
+                    </div>
+                </div>
+            </section>
+
+        </div>
     </div>
 
+    <!-- Bootstrap JS (opcional, para modal, etc) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Seu JavaScript -->
     <script src="{% static 'projeto/js/site.js' %}"></script>
 </body>
 </html>
