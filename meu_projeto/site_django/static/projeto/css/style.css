@@ -11,12 +11,16 @@ body {
   color: #fff;
 }
 
+/* Usar container do Bootstrap */
+/* .container com flex já existe no bootstrap, então vamos ajustar conforme necessidade */
+
 .container {
+  /* Bootstrap já define container com max-width e padding */
   display: flex;
   flex-direction: row;
   gap: 20px;
   padding: 20px;
-  flex-wrap: nowrap; /* Mantenho nowrap para desktops maiores */
+  flex-wrap: nowrap; /* manter nowrap para desktop */
   max-width: 100vw;
   overflow-x: hidden;
 }
@@ -32,6 +36,9 @@ body {
   flex-shrink: 0;
   box-sizing: border-box;
 }
+
+/* Para responsividade, Bootstrap usa col classes, então 
+você pode colocar a lista de jogos em uma div com col-auto ou col-md-3, por exemplo */
 
 .search-container {
   margin-top: 15px;
@@ -108,7 +115,7 @@ body {
 }
 
 .game-item:hover .game-name {
-  color: #007bff;
+  color: #007bff; /* Bootstrap primary color */
 }
 
 .game-icon img {
@@ -140,17 +147,20 @@ body {
   overflow-y: auto;
 }
 
+/* Usar Bootstrap grid para .top-section */
 .top-section {
   display: flex;
   gap: 20px;
-  flex-wrap: nowrap; /* mantém ao lado em desktop */
+  flex-wrap: nowrap;
 }
+
+/* Em Bootstrap, poderia usar row com col- classes aqui */
 
 .game-banner {
   flex: 2;
   min-width: 300px;
   height: 360px;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16 / 9;
   background-size: cover;
   background-position: center center;
   border-radius: 10px;
@@ -192,6 +202,7 @@ body {
   word-break: break-word;
 }
 
+/* Usar botões bootstrap: btn btn-primary */
 button {
   padding: 10px 20px;
   border: none;
@@ -201,14 +212,16 @@ button {
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:active {
-  transform: scale(0.97);
-}
-
+/* Substituir o estilo dos botões pelo bootstrap */
 #play-button,
 #more-info-button {
+  @extend .btn;
+  @extend .btn-primary;
+  /* se não usar sass, substitua os estilos pelo bootstrap no HTML */
   background-color: #007BFF;
   color: white;
+  border-radius: 6px;
+  border: none;
 }
 
 #play-button:hover,
@@ -227,10 +240,11 @@ button:active {
   box-sizing: border-box;
 }
 
+/* Botões de login e registro usando btn btn-primary com padding reduzido */
 #login-button,
 #register-button {
   flex: 1;
-  padding: 3px 8px;          /* bem mais fino verticalmente */
+  padding: 3px 8px;
   font-size: 0.85em;
   background-color: #007BFF;
   color: white;
@@ -238,9 +252,14 @@ button:active {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  line-height: 2.2;          /* controla a altura do texto */
+  line-height: 2.2;
 }
 
+/* Recomendado usar Bootstrap */
+#login-button,
+#register-button {
+  /* Substituir no HTML por btn btn-primary btn-sm */
+}
 
 #login-button:hover,
 #register-button:hover {
@@ -274,6 +293,7 @@ button:active {
   white-space: nowrap;
 }
 
+/* Botão logout estilo bootstrap btn btn-danger */
 .logout-button {
   background-color: #dc3545;
   color: white;
@@ -284,6 +304,8 @@ button:active {
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
+
+/* Melhor usar btn btn-danger no HTML */
 
 .logout-button:hover {
   background-color: #a71d2a;
@@ -339,17 +361,20 @@ button:active {
 
 .game-image {
   position: relative;
-  width: 32%;
+  width: 30%;
   height: 180px;
   border-radius: 10px;
   object-fit: cover;
   cursor: pointer;
-  transition: filter 0.3s ease, box-shadow 0.3s ease;
+  transition: filter 0.4s ease-in-out, box-shadow 0.4s ease-in-out, transform 0.4s ease-in-out !important;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .game-image:hover {
-  filter: brightness(0.7); /* escurece suavemente */
-  box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.3); /* opcional: brilho branco */
+  filter: brightness(0.7);
+  box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.3);
+  transform: scale(1.01);
 }
 
 @keyframes smoothZoom {
@@ -357,10 +382,11 @@ button:active {
     transform: scale(1);
   }
   to {
-    transform: scale(1.03);
+    transform: scale(1.01);
   }
 }
 
+/* Bootstrap já tem breakpoints para responsividade */
 @media (max-width: 768px) {
   .game-images {
     flex-wrap: wrap;
@@ -382,7 +408,7 @@ button:active {
   .game-list {
     width: 100%;
     height: auto;
-    max-height: 300px; /* limita altura para não cortar a lista */
+    max-height: 300px;
     overflow-y: auto;
     margin-bottom: 20px;
   }
@@ -498,8 +524,14 @@ button:active {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .modal img {
@@ -509,7 +541,6 @@ button:active {
   border-radius: 8px;
 }
 
-.close-btn,
 .prev-btn,
 .next-btn {
   position: absolute;
@@ -523,15 +554,30 @@ button:active {
   transition: background-color 0.3s ease;
 }
 
-.close-btn:hover,
+.close-btn {
+  position: absolute;
+  color: #fff;
+  font-size: 2em;
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 12px;
+  background-color: #ff0000;
+  border-radius: 22%;
+  transition: background-color 0.3s ease;
+}
+
 .prev-btn:hover,
 .next-btn:hover {
   background-color: #005dc0;
 }
 
+.close-btn:hover {
+  background-color: #c00000;
+}
+
 .close-btn {
-  top: 20px;
-  right: 20px;
+  top: 50px;
+  right: 30px;
 }
 
 .prev-btn {
@@ -547,60 +593,55 @@ button:active {
 }
 
 #select-message {
-  display: flex;               /* centraliza o conteúdo */
-  flex-direction: column;      /* para alinhar emoji e texto verticalmente */
-  justify-content: center;     /* centraliza verticalmente */
-  align-items: center;         /* centraliza horizontalmente */
-  height: 100%;                /* ocupa toda a altura do container pai */
-  color: #ccc;
-  font-size: 2.8rem;           /* tamanho grande para o texto */
-  margin-top: 0;
-  gap: 10px;                   /* espaço entre texto e emoji */
+  display: flex;               
+  flex-direction: column;      
+  justify-content: center;     
+  align-items: center;         
+  height: 100vh;               /* altura total da viewport para centralizar verticalmente */
+  color: #66c0f4;              /* azul Steam */
+  font-size: 3.5rem;           /* tamanho grande */
   user-select: none;
-  min-height: 360px;           /* altura mínima para parecer com banner */
+  gap: 20px;                   /* espaço entre texto e emoji */
+  text-align: center;
 }
 
-#select-message .pulse {
+#select-message p.pulse,
+#select-message .controller-emoji.pulse {
   animation: zoomPulse 2s ease-in-out infinite;
+  text-shadow: 0 0 15px #66c0f4;
 }
 
-#select-message .controller-emoji {
-  font-size: 3rem;             /* emoji grande */
-  line-height: 1;
-}
-
-/* Animação de zoom e brilho */
+/* Animação de zoom e brilho azul */
 @keyframes zoomPulse {
   0%, 100% {
     transform: scale(1);
-    color: #ccc;
-    text-shadow: 0 0 30px rgba(0, 123, 255, 0.3);
+    color: #66c0f4;
+    text-shadow: 0 0 30px rgba(102, 192, 244, 0.5);
   }
   50% {
     transform: scale(1.1);
-    color: #fff;
-    text-shadow: 0 0 50px rgba(0, 123, 255, 0.7);
+    color: #a4d3f5;
+    text-shadow: 0 0 50px rgba(164, 211, 245, 0.8);
   }
 }
 
-/* Largura da barra de rolagem */
+/* Estilo da barra de rolagem estilo Steam */
 ::-webkit-scrollbar {
-  width: 12px;
-  background-color: #1b2838; /* Fundo escuro da barra */
+  width: 10px;
+  background-color: #171a21; /* fundo escuro */
 }
 
-/* Fundo da barra de rolagem */
 ::-webkit-scrollbar-track {
-  background-color: #171a21; /* Fundo mais escuro */
+  background-color: #0b121b; /* fundo da track, ainda mais escuro */
   border-radius: 6px;
 }
 
-/* A parte que você arrasta (thumb) */
 ::-webkit-scrollbar-thumb {
-  background-color: #3e5c76; /* Cor do controle */
+  background-color: #66c0f4; /* azul Steam */
   border-radius: 6px;
+  border: 2px solid #0b121b; /* borda para separar do track */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #2f4a66;
+  background-color: #a4d3f5; /* azul mais claro no hover */
 }
