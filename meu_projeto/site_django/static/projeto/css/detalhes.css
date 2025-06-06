@@ -42,10 +42,6 @@ body {
     flex-direction: column;
 }
 
-.requisito:hover {
-    background-color: #3a3a3a !important;
-}
-
 .requisito h3 {
     margin-bottom: 15px;
     color: #005ce6 !important;
