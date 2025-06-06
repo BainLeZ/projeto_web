@@ -321,6 +321,7 @@ button:active,
   border-radius: 10px;
   object-fit: cover;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
 }
 
 .game-image:hover {
@@ -472,4 +473,28 @@ button:active,
     color: #fff;
     text-shadow: 0 0 50px rgba(0, 123, 255, 0.7);
   }
+}
+
+/* Largura da barra de rolagem */
+::-webkit-scrollbar {
+  width: 12px;
+  background-color: #1b2838; /* Fundo escuro da barra */
+}
+
+/* Fundo da barra de rolagem */
+::-webkit-scrollbar-track {
+  background-color: #171a21; /* Fundo mais escuro */
+  border-radius: 6px;
+}
+
+/* A parte que você arrasta (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #3e5c76; /* Azul esverdeado, parecido com Steam */
+  border-radius: 6px;
+  border: 2px solid #171a21; /* Borda para dar “profundidade” */
+}
+
+/* Efeito ao passar o mouse */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5589ab; /* Azul mais claro no hover */
 }

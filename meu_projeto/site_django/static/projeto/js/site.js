@@ -77,20 +77,33 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedGameId = icon.dataset.id;
     }
 
-    // Eventos de clique nos ícones
+    // Eventos de clique nos ícones - com stopPropagation para não chamar listener do game-item
     gameIcons.forEach(icon => {
-        icon.addEventListener('click', () => {
+        icon.addEventListener('click', (e) => {
+            e.stopPropagation();
             selecionarJogo(icon);
         });
     });
 
-    // Também permite clicar no nome do jogo para selecionar
+    // Eventos de clique nos nomes - também com stopPropagation
     const gameNames = document.querySelectorAll('.game-name');
     gameNames.forEach(name => {
-        name.addEventListener('click', () => {
+        name.addEventListener('click', (e) => {
+            e.stopPropagation();
             const parentItem = name.closest('.game-item');
             const icon = parentItem.querySelector('.game-icon');
             selecionarJogo(icon);
+        });
+    });
+
+    // Evento de clique na área inteira do jogo (.game-item)
+    const gameItems = document.querySelectorAll('.game-item');
+    gameItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const icon = item.querySelector('.game-icon');
+            if (icon) {
+                selecionarJogo(icon);
+            }
         });
     });
 
@@ -114,13 +127,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Busca
     const searchInput = document.getElementById("search-bar");
-    const gameItems = document.querySelectorAll(".game-item");
+    const allGameItems = document.querySelectorAll(".game-item");
 
     searchInput.addEventListener("input", function () {
         const query = searchInput.value.toLowerCase();
         let foundMatch = false;
 
-        gameItems.forEach(item => {
+        allGameItems.forEach(item => {
             const name = item.querySelector(".game-name").textContent.toLowerCase();
             if (name.includes(query)) {
                 item.style.display = "flex";
