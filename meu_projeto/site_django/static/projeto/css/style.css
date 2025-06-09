@@ -350,6 +350,7 @@ button {
 }
 
 /* ========= IMAGENS EXTRAS ========== */
+
 .game-images {
   display: flex;
   gap: 15px;
@@ -357,24 +358,45 @@ button {
   margin-top: 20px;
   justify-content: space-between;
   overflow-x: auto;
+  align-items: center;
 }
 
-.game-image {
-  position: relative;
+.game-image-wrapper {
+  flex-shrink: 0;
   width: 30%;
   height: 180px;
   border-radius: 10px;
+  overflow: hidden; /* este é o segredo: impede que o zoom transborde */
+  position: relative;
+}
+
+.game-image {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  cursor: pointer;
-  transition: filter 0.4s ease-in-out, box-shadow 0.4s ease-in-out, transform 0.4s ease-in-out !important;
-  transform-origin: center center;
+  transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
   will-change: transform;
+  backface-visibility: hidden;
+  cursor: pointer;
 }
 
 .game-image:hover {
-  filter: brightness(0.7);
+  transform: scale(1.05);
   box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.3);
-  transform: scale(1.01);
+}
+
+
+@media (max-width: 768px) {
+  .game-images {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .game-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
 }
 
 @keyframes smoothZoom {
@@ -382,7 +404,7 @@ button {
     transform: scale(1);
   }
   to {
-    transform: scale(1.01);
+    transform: scale(1.05);
   }
 }
 
