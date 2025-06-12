@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <title>Login</title>
     <style>
@@ -91,5 +92,6 @@
 
         <p>Não tem uma conta? <a href="{% url 'register' %}">Registre-se</a></p>
     </div>
+    <script src="{% static 'projeto/js/backspace.js' %}"></script>
 </body>
 </html>

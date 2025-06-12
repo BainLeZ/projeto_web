@@ -1,0 +1,143 @@
+/* Reset padrão */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #1e1e1e;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+}
+
+/* Card de perfil */
+.card {
+  background-color: #2b2b2b;
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Título */
+.card h1,
+.card .profile-title {
+  color: red;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Informações do usuário */
+.user-info {
+  margin-bottom: 30px;
+}
+
+.user-info p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: #fff;
+}
+
+/* Formulário de descrição */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Botões */
+button[type="submit"],
+button#edit-btn {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  width: fit-content;
+  align-self: flex-start;
+  margin-right: 10px;
+}
+
+button[type="submit"]:hover,
+button#edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Textarea */
+textarea#descricao {
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 10px;
+  resize: vertical;
+  font-size: 1rem;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .card {
+      padding: 20px;
+  }
+
+  button[type="submit"],
+  button#edit-btn {
+      width: 100%;
+      margin-right: 0;
+  }
+}
+
+/* Imagem de perfil */
+.profile-picture-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  cursor: default;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.profile-picture-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Ícone do lápis */
+.edit-icon {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  padding: 6px;
+  display: none;
+  color: white;
+  font-size: 16px;
+  z-index: 1;
+}
+
+/* Mostrar lápis apenas quando estiver em edição */
+body.edicao-ativa .profile-picture-wrapper:hover .edit-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}

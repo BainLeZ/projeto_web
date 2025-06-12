@@ -3,6 +3,8 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Jogo
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Exibe a página principal com os jogos
 def projeto(request):
@@ -15,7 +17,6 @@ def login_view(request):
         email = request.POST['email']
         password = request.POST['password']
 
-        # Procura o usuário com o e-mail informado
         try:
             user_obj = User.objects.get(email=email)
             user = authenticate(request, username=user_obj.username, password=password)
@@ -24,7 +25,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('projeto')  # Redireciona para a página principal após o login
+            return redirect('projeto')
         else:
             messages.error(request, 'Usuário ou senha incorretos. Se você não tem uma conta, registre-se!')
             return redirect('login')
@@ -74,3 +75,24 @@ def jogo_detalhes(request, jogo_id):
         'genero': jogo.genero,
     }
     return render(request, 'projeto/detalhes.html', contexto)
+
+@login_required
+def perfil(request):
+    return render(request, 'projeto/perfil.html', {'user': request.user})
+
+@login_required
+def salvar_perfil(request):
+    if request.method == 'POST':
+        descricao = request.POST.get('descricao', '')
+        foto = request.FILES.get('foto_perfil')
+
+        profile = request.user.profile
+
+        profile.descricao = descricao
+        if foto:
+            profile.foto_perfil = foto  # Correção aqui!
+        profile.save()
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Método inválido'})

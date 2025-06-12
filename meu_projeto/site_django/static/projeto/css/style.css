@@ -273,6 +273,11 @@ button {
   width: 100%;
 }
 
+.user-info a {
+  text-decoration: none;
+}
+
+
 .user-details {
   display: flex;
   align-items: center;
@@ -284,7 +289,6 @@ button {
   height: 32px;
   object-fit: cover;
   border-radius: 50%;
-  border: 2px solid #fff;
 }
 
 .username {

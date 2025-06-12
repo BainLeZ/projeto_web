@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Jogo
+from .models import Jogo, Profile
 from django.utils.html import format_html
 
 @admin.register(Jogo)
@@ -52,3 +52,21 @@ class JogoAdmin(admin.ModelAdmin):
         if obj.imagem_extra_3:
             return format_html('<img src="{}" width="100" />', obj.imagem_extra_3.url)
         return "Sem imagem extra 3"
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'descricao', 'foto_preview')
+    readonly_fields = ('foto_preview',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'descricao', 'foto', 'foto_preview')
+        }),
+    )
+
+    def foto_preview(self, obj):
+        if obj.foto:
+            return format_html('<img src="{}" width="100" style="border-radius: 50%;" />', obj.foto.url)
+        return "Sem foto"
+    foto_preview.short_description = 'Foto do Perfil'
