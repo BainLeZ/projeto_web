@@ -61,12 +61,12 @@ class ProfileAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('user', 'descricao', 'foto', 'foto_preview')
+            'fields': ('user', 'descricao', 'foto_perfil', 'foto_preview')
         }),
     )
 
     def foto_preview(self, obj):
-        if obj.foto:
-            return format_html('<img src="{}" width="100" style="border-radius: 50%;" />', obj.foto.url)
+        if obj.foto_perfil:
+            return format_html('<img src="{}" width="100" style="border-radius: 50%;" />', obj.foto_perfil.url)
         return "Sem foto"
     foto_preview.short_description = 'Foto do Perfil'

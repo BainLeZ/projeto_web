@@ -5,6 +5,8 @@ from django.contrib import messages
 from .models import Jogo
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from .models import Profile
+
 
 # Exibe a página principal com os jogos
 def projeto(request):
@@ -41,14 +43,29 @@ def register_view(request):
         password = request.POST['password']
         password_confirm = request.POST['password_confirm']
 
+        # Verifica se o username já está em uso
+        if User.objects.filter(username=username).exists():
+            messages.error(request, 'Este nome de usuário já está em uso.')
+            return redirect('register')
+
+        # Verifica se o email já está em uso
+        if User.objects.filter(email=email).exists():
+            messages.error(request, 'Este e-mail já está em uso.')
+            return redirect('register')
+
         if password != password_confirm:
             messages.error(request, 'As senhas não coincidem.')
             return redirect('register')
 
         try:
+            # Criação do usuário
             user = User.objects.create_user(username=username, email=email, password=password)
             user.first_name = nome
             user.save()
+
+            # Criar perfil automaticamente
+            Profile.objects.get_or_create(user=user)  # Criação do perfil
+
             messages.success(request, 'Registro bem-sucedido! Faça login agora.')
             return redirect('login')
         except Exception as e:

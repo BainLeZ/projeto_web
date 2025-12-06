@@ -42,4 +42,5 @@ def criar_ou_salvar_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
     else:
-        instance.profile.save()
+        profile, _ = Profile.objects.get_or_create(user=instance)
+        profile.save()
